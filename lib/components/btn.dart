@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:hunt_frontend/theme/Palette.dart';
 import 'package:hunt_frontend/theme/ThTxt.dart';
@@ -6,11 +7,29 @@ class Btn extends StatefulWidget {
   String text;
   Function onPressed;
   double borderRadius;
+  bool hasIcon;
+  IconData? iconData;
+  Color? iconColor;
+  double iconSize;
+
+  bool hasSvg;
+  String? svgPath;
+  double? height;
+
+  bool isBigger;
 
   Btn({
     super.key,
     required this.text,
     required this.onPressed,
+    this.hasIcon = false,
+    this.iconData,
+    this.iconColor,
+    this.iconSize = 24.0,
+    this.hasSvg = false,
+    this.svgPath,
+    this.height,
+    this.isBigger = false,
     this.borderRadius = 12.0,
   });
 
@@ -31,9 +50,37 @@ class _BtnState extends State<Btn> {
           )),
         ),
         onPressed: () => {widget.onPressed()},
-        child: ThTxt(
-          text: widget.text,
-          txtType: TXTTYPES.regular1,
+        child: Padding(
+          padding: EdgeInsets.all(widget.isBigger ? 20.0 : 0.0),
+          child: Column(children: [
+            ThTxt(
+              text: widget.text,
+              txtType: TXTTYPES.regular1,
+            ),
+            widget.hasIcon
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20.0,
+                      bottom: 10.0,
+                    ),
+                    child: Icon(
+                        widget.iconData,
+                        color: widget.iconColor,
+                        size: widget.iconSize
+                      ))
+                : Container(),
+            widget.hasSvg
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20.0,
+                      bottom: 10.0,
+                    ),
+                    child: SvgPicture.asset(
+                      widget.svgPath ?? '',
+                      height: widget.height,
+                    ))
+                : Container()
+          ]),
         ));
   }
 }

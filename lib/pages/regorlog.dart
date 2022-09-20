@@ -32,6 +32,9 @@ class ROLScreen extends StatelessWidget {
                                 Navigator.pushNamed(context, '/register');
                               },
                               text: 'Si e voglio registrarmi',
+                              hasSvg: true,
+                              svgPath: 'assets/utils/register.svg',
+                              isBigger: true,
                               ))),
                   SizedBox(
                       width: window.physicalSize.width,
@@ -47,6 +50,9 @@ class ROLScreen extends StatelessWidget {
                                 Navigator.pushNamed(context, '/login');
                               },
                               text: 'No, ho già un account',
+                              hasSvg: true,
+                              svgPath: 'assets/utils/login.svg',
+                              isBigger: true,
                               ))),
                 ],
               ),

@@ -37,6 +37,7 @@ class _ArrBtnState extends State<ArrBtn> {
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
             )),
+            splashFactory: NoSplash.splashFactory,
           ),
           onPressed: () => {widget.onPressed()},
           child: Row(

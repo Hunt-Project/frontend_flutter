@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:hunt_frontend/components/screen.dart';
-
-import '../components/CarouselSlider.dart';
+import '../components/carouselslider.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});

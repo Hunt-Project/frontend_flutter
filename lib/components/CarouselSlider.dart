@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hunt_frontend/components/arrbtn.dart';
+import 'package:hunt_frontend/components/carouselcomp.dart';
+import 'package:hunt_frontend/theme/Palette.dart';
 
 class ManuallyControlledSlider extends StatefulWidget {
   const ManuallyControlledSlider({super.key});
@@ -12,6 +15,7 @@ class ManuallyControlledSlider extends StatefulWidget {
 
 class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
   final CarouselController _controller = CarouselController();
+  int _cursor = 0;
 
   @override
   void initState() {
@@ -22,96 +26,130 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
   Widget build(BuildContext context) {
     return Center(
         child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              CarouselSlider(
-                items: imageSliders,
-                options: CarouselOptions(enlargeCenterPage: true, height: 200),
-                carouselController: _controller,
+      child: Column(
+        children: <Widget>[
+          CarouselSlider(
+            items: cc,
+            options: CarouselOptions(
+              enlargeCenterPage: true,
+              aspectRatio: 9/10,
+              enableInfiniteScroll : false,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _cursor = index;
+                });
+              },
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 40.0,
-                  right: 40.0,
-                ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Flexible(
-                    child: ElevatedButton(
-                      onPressed: () => _controller.previousPage(),
-                      child: Text('←'),
-                    ),
-                  ),
-                  ...Iterable<int>.generate(imgList.length).map(
-                    (int pageIndex) => Flexible(
-                      child: ElevatedButton(
-                        onPressed: () => _controller.animateToPage(pageIndex),
-                        child: Text("$pageIndex"),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: ElevatedButton(
-                      onPressed: () => _controller.nextPage(),
-                      child: Text('→'),
-                    ),
-                  ),
-                ],
-              )
-              )
-            ],
+            carouselController: _controller,
           ),
-        ));
+          Padding(
+              padding: const EdgeInsets.only(
+                left: 40.0,
+                right: 40.0,
+              ),
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: palette[CN.primary10p]!,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        ArrBtn(
+                          onPressed: () {
+                            if (_cursor != 0) {
+                              _controller.previousPage();
+                              setState(() {
+                                _cursor--;
+                              });
+                            }
+                          },
+                          text: 'prec',
+                          isRight: false,
+                          margin: 0.0,
+                          color: Colors.transparent,
+                        ),
+                        Row(children: [
+                          ...Iterable<int>.generate(cc.length).map(
+                            (int pageIndex) => Container(
+                              height: 12.0,
+                              width: 12.0,
+                              margin:
+                                  const EdgeInsets.only(left: 4.0, right: 4.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  _controller.animateToPage(pageIndex);
+                                  setState(() {
+                                    _cursor = pageIndex;
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: pageIndex > _cursor
+                                        ? palette[CN.background]
+                                        : palette[CN.primary],
+                                    shape: const CircleBorder(),
+                                    splashFactory: NoSplash.splashFactory,
+                                    elevation: 0.0),
+                                child: null,
+                              ),
+                            ),
+                          ),
+                        ]),
+                        ArrBtn(
+                          onPressed: () {
+                            if (_cursor != cc.length - 1) {
+                              _controller.nextPage();
+                              setState(() {
+                                _cursor++;
+                              });
+                            }
+                          },
+                          text: 'succ',
+                          isRight: true,
+                          margin: 0.0,
+                          color: Colors.transparent,
+                        ),
+                      ])))
+        ],
+      ),
+    ));
   }
 }
 
-
-//!DEFAULT
-final List<String> imgList = [
-  'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-  'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
+final List<CarouselComponent> ccList = [
+  CarouselComponent(
+      bgCol: palette[CN.secondary]!,
+      borderRadius: 10.0,
+      height: 800.0,
+      width: 400.0,
+      child: const Text('1')),
+  CarouselComponent(
+      bgCol: palette[CN.secondary]!,
+      borderRadius: 10.0,
+      height: 800.0,
+      width: 400.0,
+      child: const Text('2')),
+  CarouselComponent(
+      bgCol: palette[CN.secondary]!,
+      borderRadius: 10.0,
+      height: 800.0,
+      width: 400.0,
+      child: const Text('3')),
+  CarouselComponent(
+      bgCol: palette[CN.secondary]!,
+      borderRadius: 10.0,
+      height: 800.0,
+      width: 400.0,
+      child: const Text('4')),
 ];
 
-final List<Widget> imageSliders = imgList
+final List<Widget> cc = ccList
     .map((item) => Container(
           child: Container(
             margin: const EdgeInsets.all(5.0),
             child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          'No. ${imgList.indexOf(item)} image',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
+                child: item),
           ),
         ))
     .toList();

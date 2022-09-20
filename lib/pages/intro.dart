@@ -16,8 +16,10 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Screen(
-            text: 'Intro', child: const Center(
+            text: 'Introduzione',
+            hasBackButton: false, child: const Center(
               child: ManuallyControlledSlider()
-            )));
+            ),
+            ));
   }
 }

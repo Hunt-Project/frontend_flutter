@@ -6,7 +6,18 @@ import 'package:hunt_frontend/pages/ntfnd.dart';
 import 'package:hunt_frontend/pages/register.dart';
 import 'package:hunt_frontend/pages/regorlog.dart';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+Future<bool> firstOn() async {
+  const storage = FlutterSecureStorage();
+  String? value = await storage.read(key: 'firstOn');
+  return value != null;
+}
+
 void main(List<String> args) {
+
+  var firstTime = firstOn();
+
   runApp(
     MaterialApp(
       //*ROUTES

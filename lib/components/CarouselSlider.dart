@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hunt_frontend/components/arrbtn.dart';
 import 'package:hunt_frontend/components/carouselcomp.dart';
 import 'package:hunt_frontend/theme/Palette.dart';
@@ -147,4 +148,9 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
       ),
     ));
   }
+}
+
+Future finishedTutorial() async {
+  const storage = FlutterSecureStorage();
+  await storage.write(key: 'firstOn', value: 'true');
 }

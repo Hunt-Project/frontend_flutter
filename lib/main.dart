@@ -18,6 +18,8 @@ void main(List<String> args) {
 
   var firstTime = firstOn();
 
+  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => const NTFNDScreen();
+
   runApp(
     MaterialApp(
       //*ROUTES

@@ -6,7 +6,7 @@ import 'dart:developer' as dev;
 
 class Networking {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
-  final String url = 'http://localhost:8000/api';
+  String url = 'http://localhost:8000/api';
 
   Future<bool> isLogged() async {
     String? token = await storage.read(key: 'token');
@@ -41,31 +41,45 @@ class Networking {
     }
   }
 
-  Future<http.Response> register(user, pass) async {
-    final response = await http.get(Uri.parse(url));
-    final token = http.post(Uri.parse('$url/register'), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    });
-    dev.log('$url/register');
-    // Map<dynamic, dynamic> data = jsonDecode(response.body);
-    dev.log(response.toString());
+  Future<http.Response> register(mail, pass, user) async {
+    var token = await http.post(Uri.parse(url + '/register'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode({
+          "name": user,
+          "email": mail,
+          "password": pass,
+        }));
+    //
+    dev.log(token.toString());
 
-    if (response.statusCode == 200) {
-      // Registrazione effettuata con successo
-
-      return response;
-    } else if (response.statusCode == 422) {
+    if (token.statusCode == 200) {
+      Map<dynamic, dynamic> data = jsonDecode(token.body);
+      dev.log(data['access_token']);
+      return token;
+    } else if (token.statusCode == 422) {
       // I dati immessi non sono validi
-      return response; //!
+
+      /* {
+          "message": "The email must be a valid email address.",
+          "errors": {
+              "email": [
+                  "The email must be a valid email address."
+              ]
+          }
+      }*/
+
+      return token; //!
     } else {
-      throw Exception('Server error or Unauthorized: ${response.statusCode}');
+      throw Exception('Server error or Unauthorized: ${token.statusCode}');
     }
   }
 
   Future<bool> logout() async {
     String? token = await storage.read(key: 'token');
-    final response = await http.get(Uri.parse("$url/logout"), headers: {
+    final response = await http.get(Uri.parse(url + "/logout"), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',

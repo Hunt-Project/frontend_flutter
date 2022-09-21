@@ -67,7 +67,7 @@ String? nameHandler(value) {
 //*Request handling
 void mkRequest() {
   Networking net = Networking();
-  net.register(mail, pass);
+  net.register(mail, pass, name);
 }
 
 class RegisterScreen extends StatelessWidget {

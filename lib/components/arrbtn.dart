@@ -6,7 +6,7 @@ class ArrBtn extends StatefulWidget {
   String text;
   Function onPressed;
   bool isRight;
-  Color color;
+  Color? color;
   var margin;
   var borderRadius;
 
@@ -15,7 +15,7 @@ class ArrBtn extends StatefulWidget {
     required this.text,
     required this.onPressed,
     this.isRight = true,
-    this.color = const Color.fromARGB(25, 112, 67, 0),
+    this.color,
     this.margin = 10.0,
     this.borderRadius = 12.0,
   });
@@ -32,7 +32,7 @@ class _ArrBtnState extends State<ArrBtn> {
         margin: EdgeInsets.all(widget.margin),
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(widget.color),
+            backgroundColor: MaterialStateProperty.all<Color>(widget.color ?? palette[CN.primary10p]!),
             elevation: MaterialStateProperty.all(0),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),

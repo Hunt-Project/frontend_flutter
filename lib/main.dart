@@ -33,7 +33,7 @@ void main(List<String> args) {
       },
 
       //*DEF SETTINGS
-      title: 'Venatio',
+      title: 'Hunt',
       debugShowCheckedModeBanner: false,
 
       //*CUSTOM THEME

@@ -21,57 +21,63 @@ JSON ERROR:
         "email": [
             "The email has already been taken."
         ],
-        "pass0"
+        "pass"
     }
 }
 */
 
-//*Data handling
-String? mail;
-String? pass;
-String? conf;
-String? name;
-
-String? mailHandler(value) {
-  if (value == null || value.isEmpty) {
-    return 'Inserisci una mail valida';
-  }
-  mail = value;
-  return null;
-}
-
-String? passHandler(value) {
-  if (value == null || value.isEmpty) {
-    return 'Inserisci una password valida';
-  }
-  pass = value;
-  return null;
-}
-
-String? confHandler(value) {
-  if (value == null || value.isEmpty) {
-    return 'Inserisci una password valida';
-  }
-  conf = value;
-  return null;
-}
-
-String? nameHandler(value) {
-  if (value == null || value.isEmpty) {
-    return 'Non hai inserito nulla :(';
-  }
-  name = value;
-  return null;
-}
-
-//*Request handling
-void mkRequest() {
-  Networking net = Networking();
-  net.register(mail, pass, name);
-}
-
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+
+  //*Data handling
+  String? _mail;
+  String? _pass;
+  String? _conf;
+  String? _name;
+
+  String? _mailHandler(value) {
+    if (value == null || value.isEmpty) {
+      return 'Inserisci una mail valida';
+    }
+    _mail = value;
+    return null;
+  }
+
+  String? _passHandler(value) {
+    if (value == null || value.isEmpty) {
+      return 'Inserisci una password valida';
+    }
+    _pass = value;
+    return null;
+  }
+
+  String? _confHandler(value) {
+    if (value == null || value.isEmpty) {
+      return 'Inserisci una password valida';
+    }
+    _conf = value;
+    return null;
+  }
+
+  String? _nameHandler(value) {
+    if (value == null || value.isEmpty) {
+      return 'Non hai inserito nulla :(';
+    }
+    _name = value;
+    return null;
+  }
+
+  //*Request handling
+  void _mkRequest() {
+    Networking net = Networking();
+    net.register(_mail, _pass, _name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +99,7 @@ class RegisterScreen extends StatelessWidget {
                     child: DescrInpTxt(
                       text: 'Inserisci la tua mail',
                       hintText: 'Scrivi qui la tua mail',
-                      validator: (String? value) => mailHandler(value),
+                      validator: (String? value) => _mailHandler(value),
                     ),
                   ),
                   Padding(
@@ -104,7 +110,7 @@ class RegisterScreen extends StatelessWidget {
                       child: DescrInpTxt(
                         text: 'Ora crea una nuova password',
                         hintText: 'Scrivi qui la password',
-                        validator: (String? value) => passHandler(value),
+                        validator: (String? value) => _passHandler(value),
                         isPassw: true,
                       )),
                   Padding(
@@ -115,7 +121,7 @@ class RegisterScreen extends StatelessWidget {
                       child: DescrInpTxt(
                         text: 'e confermala',
                         hintText: 'conferma qui la password',
-                        validator: (String? value) => confHandler(value),
+                        validator: (String? value) => _confHandler(value),
                         isPassw: true,
                       )),
                   Padding(
@@ -126,10 +132,10 @@ class RegisterScreen extends StatelessWidget {
                       child: DescrInpTxt(
                         text: 'Hai un soprannome?',
                         hintText: 'Scrivilo qui',
-                        validator: (String? value) => nameHandler(value),
+                        validator: (String? value) => _nameHandler(value),
                         isPassw: false,
                       )),
-                  ArrBtn(text: 'Registrati', onPressed: () => mkRequest())
+                  ArrBtn(text: 'Registrati', onPressed: () => _mkRequest())
                 ],
               ))),
     ));

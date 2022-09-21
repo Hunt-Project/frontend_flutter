@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum CN{
+enum CN {
   primary,
   primary10p,
   secondary,

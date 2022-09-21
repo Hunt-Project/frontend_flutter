@@ -2,6 +2,73 @@ import 'package:flutter/material.dart';
 import 'package:hunt_frontend/components/arrbtn.dart';
 import 'package:hunt_frontend/components/descrInpTxt.dart';
 import 'package:hunt_frontend/components/screen.dart';
+import 'package:hunt_frontend/connection/ajax.dart';
+
+/*
+* Response
+
+JSON OK:
+{
+    "result": true,
+    "access_token": "3|8VxI3G7gNCUWqSDIolLnMyBF24AMbX0bfct7oEJP",
+    "token_type": "Bearer"
+}
+
+JSON ERROR:
+{
+    "message": "The email has already been taken.",
+    "errors": {
+        "email": [
+            "The email has already been taken."
+        ],
+        "pass0"
+    }
+}
+*/
+
+//*Data handling
+String? mail;
+String? pass;
+String? conf;
+String? name;
+
+String? mailHandler(value) {
+  if (value == null || value.isEmpty) {
+    return 'Inserisci una mail valida';
+  }
+  mail = value;
+  return null;
+}
+
+String? passHandler(value) {
+  if (value == null || value.isEmpty) {
+    return 'Inserisci una password valida';
+  }
+  pass = value;
+  return null;
+}
+
+String? confHandler(value) {
+  if (value == null || value.isEmpty) {
+    return 'Inserisci una password valida';
+  }
+  conf = value;
+  return null;
+}
+
+String? nameHandler(value) {
+  if (value == null || value.isEmpty) {
+    return 'Non hai inserito nulla :(';
+  }
+  name = value;
+  return null;
+}
+
+//*Request handling
+void mkRequest() {
+  Networking net = Networking();
+  net.register(mail, pass);
+}
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -26,12 +93,7 @@ class RegisterScreen extends StatelessWidget {
                     child: DescrInpTxt(
                       text: 'Inserisci la tua mail',
                       hintText: 'Scrivi qui la tua mail',
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Inserisci una mail valida';
-                        }
-                        return null;
-                      },
+                      validator: (String? value) => mailHandler(value),
                     ),
                   ),
                   Padding(
@@ -42,12 +104,7 @@ class RegisterScreen extends StatelessWidget {
                       child: DescrInpTxt(
                         text: 'Ora crea una nuova password',
                         hintText: 'Scrivi qui la password',
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Inserisci una password valida';
-                          }
-                          return null;
-                        },
+                        validator: (String? value) => passHandler(value),
                         isPassw: true,
                       )),
                   Padding(
@@ -58,12 +115,7 @@ class RegisterScreen extends StatelessWidget {
                       child: DescrInpTxt(
                         text: 'e confermala',
                         hintText: 'conferma qui la password',
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Inserisci una password valida';
-                          }
-                          return null;
-                        },
+                        validator: (String? value) => confHandler(value),
                         isPassw: true,
                       )),
                   Padding(
@@ -74,15 +126,10 @@ class RegisterScreen extends StatelessWidget {
                       child: DescrInpTxt(
                         text: 'Hai un soprannome?',
                         hintText: 'Scrivilo qui',
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Non hai inserito nulla :(';
-                          }
-                          return null;
-                        },
-                        isPassw: true,
+                        validator: (String? value) => nameHandler(value),
+                        isPassw: false,
                       )),
-                  ArrBtn(text: 'Registrati', onPressed: () {})
+                  ArrBtn(text: 'Registrati', onPressed: () => mkRequest())
                 ],
               ))),
     ));

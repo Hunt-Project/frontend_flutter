@@ -146,9 +146,10 @@ class _IntroScreenState extends State<IntroScreen> {
                                           ))
                                       : ArrBtn(
                                           onPressed: () {
+                                            //*end of the tutorial
+                                            finishedTutorial();
                                             Navigator.pushNamed(
                                                 context, '/rol');
-                                            //*end of the tutorial
                                           },
                                           text: 'fatto!',
                                           isRight: true,

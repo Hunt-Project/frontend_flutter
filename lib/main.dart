@@ -8,6 +8,7 @@ import 'package:hunt_frontend/pages/regorlog.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+//First time on handling
 Future<bool> firstOn() async {
   const storage = FlutterSecureStorage();
   String? value = await storage.read(key: 'firstOn');
@@ -15,16 +16,21 @@ Future<bool> firstOn() async {
 }
 
 void main(List<String> args) {
+  //First time on (goes to intro by default)
+  bool firstTime = false;
+  firstOn().then((value) {
+    firstTime = value;
+  });
 
-  var firstTime = firstOn();
-
-  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => const NTFNDScreen();
+  ErrorWidget.builder =
+      (FlutterErrorDetails flutterErrorDetails) => const NTFNDScreen();
 
   runApp(
     MaterialApp(
       //*ROUTES
       routes: {
-        '/': (context) => const HomeScreen(),
+        //First time on handling
+        '/': (context) => firstTime ? const IntroScreen() : const HomeScreen(),
         '/intro': (context) => const IntroScreen(),
         '/ntfnd': (context) => const NTFNDScreen(),
         '/register': (context) => const RegisterScreen(),

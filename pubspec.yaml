@@ -68,6 +68,10 @@ flutter:
     - assets/logo/logo.svg
     - assets/utils/register.svg
     - assets/utils/login.svg
+    - assets/utils/intro0.svg
+    - assets/utils/intro1.svg
+    - assets/utils/intro2.svg
+    - assets/utils/intro3.svg
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

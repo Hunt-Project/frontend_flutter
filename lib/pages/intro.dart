@@ -148,6 +148,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                           onPressed: () {
                                             Navigator.pushNamed(
                                                 context, '/rol');
+                                            //*end of the tutorial
                                           },
                                           text: 'fatto!',
                                           isRight: true,
@@ -161,7 +162,6 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 }
-
 
 //*DATA for intro carousel
 final List<CarouselComponent> ccList = [
@@ -253,7 +253,6 @@ final List<Widget> cc = ccList
           ),
         ))
     .toList();
-
 
 Future finishedTutorial() async {
   const storage = FlutterSecureStorage();

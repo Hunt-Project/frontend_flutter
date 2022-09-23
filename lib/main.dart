@@ -9,6 +9,7 @@ import 'package:hunt_frontend/pages/register.dart';
 import 'package:hunt_frontend/pages/regorlog.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hunt_frontend/pages/settings.dart';
 
 //First time on handling
 Future<bool> firstOn() async {
@@ -33,6 +34,7 @@ void main(List<String> args) {
       routes: {
         //First time on handling
         '/': (context) => firstTime ? const IntroScreen() : const HomeScreen(),
+        '/settings': (context) => const SettingsScreen(),
         '/intro': (context) => const IntroScreen(),
         '/ntfnd': (context) => const NTFNDScreen(),
         '/register': (context) => const RegisterScreen(),

@@ -7,12 +7,14 @@ class Screen extends StatefulWidget {
   var child;
   String text;
   bool hasBackButton;
+  bool hasSettingsButton;
 
   Screen({
     super.key,
     required this.text,
     required this.child,
     this.hasBackButton = true,
+    this.hasSettingsButton = false,
   });
 
   @override
@@ -44,6 +46,25 @@ class _ScreenState extends State<Screen> {
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.arrow_back)),
+                )
+              : Container(),
+          widget.hasSettingsButton
+              ? Container(
+                alignment: Alignment.topRight,
+                  margin: const EdgeInsets.only(top: 124.0, right: 20.0),
+                  child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            palette[CN.primary]!),
+                        overlayColor: MaterialStateProperty.all<Color>(
+                            Colors.transparent),
+                        elevation: MaterialStateProperty.all(0),
+                        splashFactory: NoSplash.splashFactory,
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/settings');
+                      },
+                      child: const Icon(Icons.settings)),
                 )
               : Container(),
           Padding(

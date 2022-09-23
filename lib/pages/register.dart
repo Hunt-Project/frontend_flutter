@@ -61,6 +61,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (value == null || value.isEmpty) {
       return 'Inserisci una password valida';
     }
+    if (value != _pass) {
+      return 'Le password non coincidono';
+    }
     _conf = value;
     return null;
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hunt_frontend/pages/confmail.dart';
 import 'package:hunt_frontend/pages/home.dart';
 import 'package:hunt_frontend/pages/intro.dart';
 import 'package:hunt_frontend/pages/login.dart';
 import 'package:hunt_frontend/pages/ntfnd.dart';
+import 'package:hunt_frontend/pages/regdone.dart';
 import 'package:hunt_frontend/pages/register.dart';
 import 'package:hunt_frontend/pages/regorlog.dart';
 
@@ -36,6 +38,8 @@ void main(List<String> args) {
         '/register': (context) => const RegisterScreen(),
         '/login': (context) => const LoginScreen(),
         '/rol': (context) => const ROLScreen(),
+        '/confmail': (context) => const ConfMailScreen(),
+        '/regdone': (context) => const RegDoneScreen(),
       },
 
       //*DEF SETTINGS

@@ -37,6 +37,16 @@ class FLNavigator extends StatelessWidget {
                     Navigator.pushNamed(context, '/rol');
                   },
                   child: const Text('go to ROL')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/confmail');
+                  },
+                  child: const Text('go to confmail')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/regdone');
+                  },
+                  child: const Text('go to regdone')),
             ])));
   }
 }
